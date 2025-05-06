@@ -345,7 +345,8 @@ export default function Home() {
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
-              height: '100vh',
+              minHeight: '100vh',
+              height: { lg: '100vh', xs: 'auto' },
               p: { lg: 8, xs: 4 },
             }}
           >
@@ -537,7 +538,7 @@ export default function Home() {
                 >
                   <Card
                     sx={{
-                      width: '30%',
+                      width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
                     }}
                   >
@@ -617,7 +618,7 @@ export default function Home() {
                   </Card>
                   <Card
                     sx={{
-                      width: '30%',
+                      width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
                     }}
                   >
@@ -661,7 +662,7 @@ export default function Home() {
                   </Card>
                   <Card
                     sx={{
-                      width: '30%',
+                      width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
                     }}
                   >
@@ -717,7 +718,7 @@ export default function Home() {
                   </Card>
                   <Card
                     sx={{
-                      width: '30%',
+                      width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
                     }}
                   >
@@ -763,7 +764,7 @@ export default function Home() {
                   </Card>
                   <Card
                     sx={{
-                      width: '30%',
+                      width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
                     }}
                   >
@@ -820,7 +821,7 @@ export default function Home() {
                   </Card>
                   <Card
                     sx={{
-                      width: '30%',
+                      width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
                     }}
                   >
