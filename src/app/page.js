@@ -1193,7 +1193,7 @@ export default function Home() {
                             >
                               <Chip
                                 label="Ollama"
-                                avatar={<Avatar src="/assets/img/Ollama.jpeg" />}
+                                avatar={<Avatar src="/assets/img/ollama.jpeg" />}
                               />
                               <Chip
                                 label="OpenAI APIs"
