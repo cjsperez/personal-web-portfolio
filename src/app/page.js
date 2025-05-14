@@ -551,7 +551,7 @@ export default function Home() {
                   <Card
                     sx={{
                       width: { md: '30%', xs: '100%' },
-                      height: '55vh',
+                      height: { md: '55vh', xs: 'auto' },
                       borderRadius: '16px',
                     }}
                   >
@@ -863,7 +863,7 @@ export default function Home() {
                     sx={{
                       width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
-                      height: '55vh',
+                      height: { md: '55vh', xs: 'auto' },
                     }}
                   >
                     <CardContent>
@@ -963,7 +963,7 @@ export default function Home() {
                     sx={{
                       width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
-                      height: '55vh',
+                      height: { md: '55vh', xs: 'auto' },
                     }}
                   >
                     <CardContent>
@@ -1072,7 +1072,7 @@ export default function Home() {
                     sx={{
                       width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
-                      height: '55vh',
+                      height: { md: '55vh', xs: 'auto' },
                     }}
                   >
                     <CardContent>
@@ -1169,7 +1169,7 @@ export default function Home() {
                     sx={{
                       width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
-                      height: '55vh',
+                      height: { md: '55vh', xs: 'auto' },
                     }}
                   >
                     <CardContent>
@@ -1250,7 +1250,7 @@ export default function Home() {
                     sx={{
                       width: { md: '30%', xs: '100%' },
                       borderRadius: '16px',
-                      height: '55vh',
+                      height: { md: '55vh', xs: 'auto' },
                     }}
                   >
                     <CardContent>
