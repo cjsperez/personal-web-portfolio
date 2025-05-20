@@ -339,7 +339,7 @@ export default function Home() {
           sx={{
             maxWidth: '100vw',
             width: 'auto',
-            mx: '64px',
+            mx: { md: '64px', xs: '16px' },
           }}
         >
           <Summary />
