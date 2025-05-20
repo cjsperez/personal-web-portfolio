@@ -110,8 +110,8 @@ export default function Home() {
                     // textAlign: { xs: 'center', lg: 'start' },
                   }}
                 >
-                  Hi!
-                  <br /> I'm
+                  Hi! I'm
+                  <br />
                   <span style={{ color: '#00FF00', textAlign: 'center' }}>Crisjahn Perez</span>
                 </Typography>
               ))}

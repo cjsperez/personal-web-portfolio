@@ -22,7 +22,7 @@ const Projects = () => {
         gap: 2,
         minHeight: '100vh',
         height: 'auto',
-        px: { lg: 8, xs: 4 },
+        px: { lg: 8, xs: 2 },
         py: 2,
       }}
     >
@@ -72,7 +72,14 @@ const Projects = () => {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexDirection: { xs: 'column', md: 'row' },
+                    }}
+                  >
                     <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                       1. ParkNcharge(v2) - Portal
                     </Typography>
@@ -95,7 +102,14 @@ const Projects = () => {
                   aria-controls="panel2-content"
                   id="panel2-header"
                 >
-                  <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexDirection: { xs: 'column', md: 'row' },
+                    }}
+                  >
                     <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                       2. ParkNcharge(v2) - Admin
                     </Typography>
@@ -118,7 +132,14 @@ const Projects = () => {
                   aria-controls="panel3-content"
                   id="panel3-header"
                 >
-                  <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexDirection: { xs: 'column', md: 'row' },
+                    }}
+                  >
                     <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                       3. ParkNcharge(v2) - QR-Charging
                     </Typography>
