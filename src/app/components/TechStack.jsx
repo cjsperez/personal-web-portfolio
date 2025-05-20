@@ -18,7 +18,7 @@ const TechStack = () =>{
               gap: 2,
               minHeight: '100vh',
               height: 'auto',
-              px: { lg: 8, xs: 4 },
+              px: { lg: 8, xs: 2 },
               py: 2,
             }}
           >

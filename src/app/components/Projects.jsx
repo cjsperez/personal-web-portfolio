@@ -83,7 +83,13 @@ const Projects = () => {
                     <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                       1. ParkNcharge(v2) - Portal
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: { md: 'flex-end', xs: 'flex-start' },
+                      }}
+                    >
                       <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                         SysNet Integrators, Inc.
                       </Typography>
@@ -113,7 +119,13 @@ const Projects = () => {
                     <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                       2. ParkNcharge(v2) - Admin
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: { md: 'flex-end', xs: 'flex-start' },
+                      }}
+                    >
                       <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                         SysNet Integrators, Inc.
                       </Typography>
@@ -143,7 +155,13 @@ const Projects = () => {
                     <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                       3. ParkNcharge(v2) - QR-Charging
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: { md: 'flex-end', xs: 'flex-start' },
+                      }}
+                    >
                       <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
                         SysNet Integrators, Inc.
                       </Typography>
