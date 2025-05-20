@@ -17,9 +17,9 @@ export default function Home() {
   const theme = useTheme()
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   // State to control which line to show
-  const [showLine, setShowLine] = useState(5)
-  const [showButton, setShowButton] = useState(true)
-  const [UserImage, setUserImage] = useState(true)
+  const [showLine, setShowLine] = useState(0)
+  const [showButton, setShowButton] = useState(false)
+  const [UserImage, setUserImage] = useState(false)
 
   useEffect(() => {
     setUserImage(true)
