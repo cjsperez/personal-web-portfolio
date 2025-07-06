@@ -1,19 +1,43 @@
 'use client'
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
-  Accordion,
-  AccordionActions,
-  AccordionSummary,
-  AccordionDetails,
   Button,
+  Card,
+  CardMedia,
+  CardContent,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import * as motion from 'motion/react-client'
-
-import Slider from './subcomponents/Slider'
+import { items } from './websites/constant'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 
 const Projects = () => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  // Show fewer items on smaller screens
+  const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3
+
+  const handleNext = () => {
+    setActiveIndex((prevIndex) => (prevIndex >= items.length - itemsToShow ? 0 : prevIndex + 1))
+  }
+
+  const handlePrev = () => {
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? items.length - itemsToShow : prevIndex - 1))
+  }
+
+  // Get the current items to display
+  const visibleItems = []
+  for (let i = 0; i < itemsToShow; i++) {
+    const index = (activeIndex + i) % items.length
+    visibleItems.push(items[index])
+  }
+
   return (
     <Box
       sx={{
@@ -23,164 +47,186 @@ const Projects = () => {
         minHeight: '100vh',
         height: 'auto',
         px: { lg: 8, xs: 2 },
-        py: 2,
+        py: 8,
+        overflow: 'hidden',
       }}
     >
-      <Box>
-        <motion.div
-          initial={{ x: -200, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3, type: 'spring', bounce: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: '2rem', lg: '3rem' },
-              fontWeight: 'bold',
-              mb: 4,
-              position: 'relative',
-              '&:after': {
-                content: '""',
-                position: 'absolute',
-                bottom: -8,
-                left: 0,
-                width: '80px',
-                height: '4px',
-                backgroundColor: '#00FF00',
-              },
-            }}
-          >
-            Company and Personal Projects
-          </Typography>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{
-            delay: 1,
-            duration: 1,
-            scale: { type: 'spring', visualDuration: 0.4, bounce: 0.2 },
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: { xs: '1.8rem', sm: '2.5rem', lg: '3rem' },
+          fontWeight: 'bold',
+          mb: 4,
+          position: 'relative',
+          '&:after': {
+            content: '""',
+            position: 'absolute',
+            bottom: -8,
+            left: 0,
+            width: '80px',
+            height: '4px',
+            backgroundColor: '#00FF00',
+          },
+        }}
+      >
+        My Projects
+      </Typography>
+      <Box
+        sx={{
+          position: 'relative',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: { xs: theme.spacing(1), sm: theme.spacing(4) },
+          width: '100%',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            gap: { xs: theme.spacing(1), sm: theme.spacing(4) },
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
           }}
-          viewport={{ once: true }}
         >
-          <Box>
-            <div>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1-content"
-                  id="panel1-header"
+          {visibleItems.map((item, index) => (
+            <Card
+              key={item.id}
+              sx={{
+                width: {
+                  xs: '90vw',
+                  sm: isTablet && index === 1 ? 350 : 300,
+                  md: index === 1 ? 400 : 300,
+                },
+                height: {
+                  xs: 400,
+                  sm: isTablet && index === 1 ? 450 : 400,
+                  md: index === 1 ? 500 : 400,
+                },
+                minWidth: { xs: '85vw', sm: 'unset' },
+                flexShrink: 0,
+                scrollSnapAlign: 'center',
+                transition: 'all 0.3s ease',
+                boxShadow: !isMobile && index === 1 ? theme.shadows[8] : theme.shadows[4],
+                transform: !isMobile && index === 1 ? 'scale(1.05)' : 'scale(1)',
+                position: 'relative',
+                zIndex: !isMobile && index === 1 ? 2 : 1,
+                backgroundColor: theme.palette.background.paper,
+                mx: 'auto',
+              }}
+            >
+              <CardMedia
+                component="img"
+                height={!isMobile && index === 1 ? 300 : 200}
+                image={item.url}
+                alt={item.title}
+                sx={{ objectFit: 'cover', width: '100%' }}
+              />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant={!isMobile && index === 1 ? 'h5' : 'h6'}
+                  component="div"
                 >
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      flexDirection: { xs: 'column', md: 'row' },
-                    }}
-                  >
-                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                      1. ParkNcharge(v2) - Portal
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: { md: 'flex-end', xs: 'flex-start' },
-                      }}
-                    >
-                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                        SysNet Integrators, Inc.
-                      </Typography>
-                      <Typography variant="subtitle1">(Company Project)</Typography>
-                    </Box>
-                  </Box>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-                  lacus ex, sit amet blandit leo lobortis eget.
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header"
-                >
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      flexDirection: { xs: 'column', md: 'row' },
-                    }}
-                  >
-                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                      2. ParkNcharge(v2) - Admin
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: { md: 'flex-end', xs: 'flex-start' },
-                      }}
-                    >
-                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                        SysNet Integrators, Inc.
-                      </Typography>
-                      <Typography variant="subtitle1">(Company Project)</Typography>
-                    </Box>
-                  </Box>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-                  lacus ex, sit amet blandit leo lobortis eget.
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel3-content"
-                  id="panel3-header"
-                >
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      flexDirection: { xs: 'column', md: 'row' },
-                    }}
-                  >
-                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                      3. ParkNcharge(v2) - QR-Charging
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: { md: 'flex-end', xs: 'flex-start' },
-                      }}
-                    >
-                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                        SysNet Integrators, Inc.
-                      </Typography>
-                      <Typography variant="subtitle1">(Company Project)</Typography>
-                    </Box>
-                  </Box>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-                  lacus ex, sit amet blandit leo lobortis eget.
-                </AccordionDetails>
-                <AccordionActions>
-                  <Button>Cancel</Button>
-                  <Button>Agree</Button>
-                </AccordionActions>
-              </Accordion>
-            </div>
-          </Box>
-        </motion.div>
+                  {item.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {item.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+
+        {!isMobile && (
+          <>
+            <Button
+              onClick={handlePrev}
+              sx={{
+                position: 'absolute',
+                left: 16,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                minWidth: 'unset',
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                padding: theme.spacing(1),
+                backgroundColor: theme.palette.grey[800], // Dark gray
+                color: 'white',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                '&:hover': {
+                  backgroundColor: theme.palette.grey[700],
+                },
+                opacity: '50%',
+                zIndex: 1,
+              }}
+            >
+              <KeyboardArrowLeft fontSize="large" />
+            </Button>
+
+            <Button
+              onClick={handleNext}
+              sx={{
+                position: 'absolute',
+                right: 16,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                minWidth: 'unset',
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                padding: theme.spacing(1),
+                backgroundColor: theme.palette.grey[800], // Dark gray
+                color: 'white',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                '&:hover': {
+                  backgroundColor: theme.palette.grey[700],
+                },
+                opacity: '50%',
+                zIndex: 1,
+              }}
+            >
+              <KeyboardArrowRight fontSize="large" />
+            </Button>
+          </>
+        )}
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: theme.spacing(4),
+          }}
+        >
+          {items.map((_, index) => (
+            <Box
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                margin: theme.spacing(0, 0.5),
+                backgroundColor:
+                  index >= activeIndex && index < activeIndex + itemsToShow
+                    ? theme.palette.primary.main
+                    : theme.palette.grey[400],
+                cursor: 'pointer',
+                transition: 'background-color 0.3s',
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+              }}
+            />
+          ))}
+        </Box>
       </Box>
     </Box>
   )

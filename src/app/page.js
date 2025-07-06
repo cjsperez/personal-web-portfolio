@@ -6,7 +6,8 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
-import * as motion from 'motion/react-client'
+// import * as motion from 'motion/react-client'
+import { motion } from 'motion/react'
 import { Typewriter } from 'react-simple-typewriter'
 
 import TechStack from './components/TechStack'
@@ -333,6 +334,7 @@ export default function Home() {
           </motion.div>
         )}
       </Box>
+
       {/* About Section */}
       {showButton && (
         <Box
