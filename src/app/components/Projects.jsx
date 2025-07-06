@@ -19,6 +19,8 @@ const Projects = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
   const [activeIndex, setActiveIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
   // Show fewer items on smaller screens
   const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3
@@ -29,6 +31,27 @@ const Projects = () => {
 
   const handlePrev = () => {
     setActiveIndex((prevIndex) => (prevIndex === 0 ? items.length - itemsToShow : prevIndex - 1))
+  }
+
+  // Touch event handlers for swipe detection
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swipe left (next)
+      handleNext()
+    }
+
+    if (touchStart - touchEnd < -50) {
+      // Swipe right (prev)
+      handlePrev()
+    }
   }
 
   // Get the current items to display
@@ -81,6 +104,9 @@ const Projects = () => {
         }}
       >
         <Box
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           sx={{
             display: 'flex',
             gap: { xs: theme.spacing(1), sm: theme.spacing(4) },
@@ -93,6 +119,7 @@ const Projects = () => {
             },
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
+            touchAction: 'pan-y',
           }}
         >
           {visibleItems.map((item, index) => (
