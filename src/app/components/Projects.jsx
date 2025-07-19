@@ -14,6 +14,8 @@ import { items } from './websites/constant'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 
+import ProjectModal from './subcomponents/ProjectModal'
+
 const Projects = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -21,6 +23,8 @@ const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [openModal, setOpenModal] = useState(false) // Modal state
+  const [selectedProject, setSelectedProject] = useState(null) // Selected project state
 
   // Show fewer items on smaller screens
   const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3
@@ -52,6 +56,17 @@ const Projects = () => {
       // Swipe right (prev)
       handlePrev()
     }
+  }
+
+  // Handle modal open
+  const handleOpenModal = (project) => {
+    setSelectedProject(project)
+    setOpenModal(true)
+  }
+
+  // Handle modal close
+  const handleCloseModal = () => {
+    setOpenModal(false)
   }
 
   // Get the current items to display
@@ -125,6 +140,7 @@ const Projects = () => {
           {visibleItems.map((item, index) => (
             <Card
               key={item.id}
+              onClick={() => handleOpenModal(item)}
               sx={{
                 width: {
                   xs: '90vw',
@@ -136,6 +152,7 @@ const Projects = () => {
                   sm: isTablet && index === 1 ? 450 : 400,
                   md: index === 1 ? 500 : 400,
                 },
+                borderRadius: '8px!important',
                 minWidth: { xs: '85vw', sm: 'unset' },
                 flexShrink: 0,
                 scrollSnapAlign: 'center',
@@ -146,12 +163,24 @@ const Projects = () => {
                 zIndex: !isMobile && index === 1 ? 2 : 1,
                 backgroundColor: theme.palette.background.paper,
                 mx: 'auto',
+                cursor: 'pointer',
+                '&:hover': {
+                  transform: !isMobile && index === 1 ? 'scale(1.08)' : 'scale(1.03)',
+                  boxShadow: theme.shadows[12],
+                  zIndex: 3,
+                  '& .MuiCardMedia-root': {
+                    opacity: 0.9,
+                  },
+                },
+                '&:active': {
+                  transform: 'scale(0.98)',
+                },
               }}
             >
               <CardMedia
                 component="img"
                 height={!isMobile && index === 1 ? 300 : 200}
-                image={item.url}
+                image={item.img_url}
                 alt={item.title}
                 sx={{ objectFit: 'cover', width: '100%' }}
               />
@@ -169,6 +198,7 @@ const Projects = () => {
               </CardContent>
             </Card>
           ))}
+          <ProjectModal open={openModal} onClose={handleCloseModal} project={selectedProject} />
         </Box>
 
         {!isMobile && (

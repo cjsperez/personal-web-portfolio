@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -13,14 +13,25 @@ import { Typewriter } from 'react-simple-typewriter'
 import TechStack from './components/TechStack'
 import Summary from './components/Summary'
 import Projects from './components/Projects'
+import ContactSection from './components/subcomponents/Contact'
 
 export default function Home() {
   const theme = useTheme()
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   // State to control which line to show
   const [showLine, setShowLine] = useState(0)
   const [showButton, setShowButton] = useState(false)
   const [UserImage, setUserImage] = useState(false)
+  const targetRef = useRef(null)
+
+  const scrollToTarget = () => {
+    if (!targetRef.current) return
+    const offset = isMobile ? 60 : 80 // Adjust this to your header height or desired padding
+    const y = targetRef.current.getBoundingClientRect().top + window.pageYOffset - offset
+
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     setUserImage(true)
@@ -227,6 +238,7 @@ export default function Home() {
                   variant="outlined"
                   size="large"
                   sx={{
+                    zIndex: 2,
                     color: 'white',
                     borderColor: 'white',
                     borderWidth: 3,
@@ -236,6 +248,7 @@ export default function Home() {
                     fontSize: '1rem',
                     fontWeight: 'bold',
                   }}
+                  onClick={scrollToTarget}
                 >
                   Learn more about me
                 </Button>
@@ -344,9 +357,10 @@ export default function Home() {
             mx: { md: '64px', xs: '16px' },
           }}
         >
-          <Summary />
+          <Summary onTargetRef={targetRef} />
           <TechStack />
           <Projects />
+          <ContactSection />
         </Box>
       )}
     </Box>

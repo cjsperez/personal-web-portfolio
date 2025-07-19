@@ -2,7 +2,7 @@
 import { Box, Typography } from '@mui/material'
 import * as motion from 'motion/react-client'
 
-const Summary = () => {
+const Summary = (props) => {
   return (
     <Box
       sx={{
@@ -14,7 +14,7 @@ const Summary = () => {
         p: { lg: 8, xs: 2 },
       }}
     >
-      <Box>
+      <Box ref={props.onTargetRef}>
         <motion.div
           initial={{ x: -200, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
