@@ -13,7 +13,6 @@ import {
 import { items } from './websites/constant'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-
 import ProjectModal from './subcomponents/ProjectModal'
 
 const Projects = () => {
@@ -23,8 +22,9 @@ const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
-  const [openModal, setOpenModal] = useState(false) // Modal state
-  const [selectedProject, setSelectedProject] = useState(null) // Selected project state
+  const [openModal, setOpenModal] = useState(false)
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [clickAllowed, setClickAllowed] = useState(true)
 
   // Show fewer items on smaller screens
   const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3
@@ -40,19 +40,26 @@ const Projects = () => {
   // Touch event handlers for swipe detection
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX)
+    setTouchEnd(e.targetTouches[0].clientX)
+    setClickAllowed(true)
   }
 
   const handleTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX)
+    // If movement is significant, disable click
+    if (Math.abs(e.targetTouches[0].clientX - touchStart) > 10) {
+      setClickAllowed(false)
+    }
   }
 
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
+    const threshold = 50 // Minimum swipe distance
+    const difference = touchStart - touchEnd
+
+    if (difference > threshold) {
       // Swipe left (next)
       handleNext()
-    }
-
-    if (touchStart - touchEnd < -50) {
+    } else if (difference < -threshold) {
       // Swipe right (prev)
       handlePrev()
     }
@@ -60,8 +67,10 @@ const Projects = () => {
 
   // Handle modal open
   const handleOpenModal = (project) => {
-    setSelectedProject(project)
-    setOpenModal(true)
+    if (clickAllowed) {
+      setSelectedProject(project)
+      setOpenModal(true)
+    }
   }
 
   // Handle modal close
@@ -215,7 +224,7 @@ const Projects = () => {
                 height: 48,
                 borderRadius: '50%',
                 padding: theme.spacing(1),
-                backgroundColor: theme.palette.grey[800], // Dark gray
+                backgroundColor: theme.palette.grey[800],
                 color: 'white',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
                 '&:hover': {
@@ -240,7 +249,7 @@ const Projects = () => {
                 height: 48,
                 borderRadius: '50%',
                 padding: theme.spacing(1),
-                backgroundColor: theme.palette.grey[800], // Dark gray
+                backgroundColor: theme.palette.grey[800],
                 color: 'white',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
                 '&:hover': {
