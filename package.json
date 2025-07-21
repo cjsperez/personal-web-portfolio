@@ -23,6 +23,7 @@
     "react-dom": "^19.0.0",
     "react-simple-typewriter": "^5.0.1",
     "resend": "^4.7.0",
-    "swiper": "^11.2.6"
+    "swiper": "^11.2.6",
+    "vercel": "^44.5.0"
   }
 }
