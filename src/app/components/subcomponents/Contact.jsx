@@ -28,7 +28,7 @@ const ContactSection = () => {
     success: false,
     error: false,
   })
-  const cvFileName = 'CSPEREZ_CV-0825.pdf' // Replace with your actual CV filename
+  const cvFileName = 'CSPerez-CV-0825.pdf' // Replace with your actual CV filename
 
   const handleChange = (e) => {
     const { name, value } = e.target
